@@ -1,0 +1,70 @@
+{
+    "name": "switon/cache",
+    "description": "Redis-backed PSR-16 cache with JSON values, prefix-scoped clear, and cache lifecycle events for Switon Framework",
+    "type": "library",
+    "keywords": [
+        "switon",
+        "cache",
+        "psr-16",
+        "redis"
+    ],
+    "homepage": "https://github.com/switon-php/cache",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "switon",
+            "email": "admin@switon.dev"
+        }
+    ],
+    "support": {
+        "source": "https://github.com/switon-php/cache",
+        "issues": "https://github.com/switon-php/cache/issues",
+        "docs": "https://docs.switon.dev/latest/cache"
+    },
+    "require": {
+        "php": ">=8.3",
+        "psr/simple-cache": "^3.0",
+        "psr/event-dispatcher": "^1.0",
+        "switon/core": "^1.0",
+        "switon/event": "^1.0",
+        "switon/redis": "^1.0"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^2.0",
+        "switon/testing": "^1.0",
+        "phpstan/extension-installer": "^1.4"
+    },
+    "config": {
+        "allow-plugins": {
+            "switon/composer-extra": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Switon\\Caching\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Switon\\Caching\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "phpstan": "@php vendor/bin/phpstan analyse",
+        "test": "@php vendor/bin/phpunit --configuration tests/phpunit.xml.dist --testsuite=all --display-deprecations --display-phpunit-notices"
+    },
+    "extra": {
+        "switon": {
+            "providers": [
+                "Switon\\Caching\\ServiceProvider"
+            ],
+            "commands": [
+                "Switon\\Caching\\Command\\CacheCommand"
+            ]
+        },
+        "branch-alias": {
+            "dev-dev": "1.0.x-dev"
+        }
+    }
+}
