@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Switon\Caching\Event;
 
 use Psr\SimpleCache\CacheInterface;
+use Switon\Core\SenderAwareInterface;
 use Switon\Eventing\Attribute\EventLevel;
 use Switon\Eventing\Severity;
 
@@ -18,19 +19,18 @@ use Switon\Eventing\Severity;
  * @see \Switon\Caching\Event\CacheMiss
  */
 #[EventLevel(Severity::DEBUG)]
-class CacheHit
+class CacheHit implements SenderAwareInterface
 {
-    /**
-     * @param CacheInterface $cache Cache instance that handled the lookup
-     * @param string $key Cache key (without prefix)
-     * @param mixed $value Cached value (deserialized)
-     * @param string $prefix Cache prefix used
-     */
     public function __construct(
-        public CacheInterface $cache,
+        public CacheInterface $sender,
         public string         $key,
         public mixed          $value,
         public string         $prefix
     ) {
+    }
+
+    public function getSender(): CacheInterface
+    {
+        return $this->sender;
     }
 }

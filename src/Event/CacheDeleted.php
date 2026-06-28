@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Switon\Caching\Event;
 
 use Psr\SimpleCache\CacheInterface;
+use Switon\Core\SenderAwareInterface;
 use Switon\Eventing\Attribute\EventLevel;
 use Switon\Eventing\Severity;
 
@@ -19,17 +20,17 @@ use Switon\Eventing\Severity;
  * @see \Switon\Caching\Event\CacheCleared
  */
 #[EventLevel(Severity::DEBUG)]
-class CacheDeleted
+class CacheDeleted implements SenderAwareInterface
 {
-    /**
-     * @param CacheInterface $cache Cache instance that handled the deletion
-     * @param list<string> $keys Cache keys deleted (without prefix)
-     * @param string $prefix Cache prefix used
-     */
     public function __construct(
-        public CacheInterface $cache,
+        public CacheInterface $sender,
         public array          $keys,
         public string         $prefix
     ) {
+    }
+
+    public function getSender(): CacheInterface
+    {
+        return $this->sender;
     }
 }

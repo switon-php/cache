@@ -6,6 +6,7 @@ namespace Switon\Caching\Event;
 
 use DateInterval;
 use Psr\SimpleCache\CacheInterface;
+use Switon\Core\SenderAwareInterface;
 use Switon\Eventing\Attribute\EventLevel;
 use Switon\Eventing\Severity;
 
@@ -20,21 +21,19 @@ use Switon\Eventing\Severity;
  * @see \Switon\Caching\Event\CacheDeleted
  */
 #[EventLevel(Severity::DEBUG)]
-class CacheWritten
+class CacheWritten implements SenderAwareInterface
 {
-    /**
-     * @param CacheInterface $cache Cache instance that handled the write
-     * @param string $key Cache key (without prefix)
-     * @param mixed $value Value written (before serialization)
-     * @param null|int|DateInterval $ttl Time-to-live passed to set()
-     * @param string $prefix Cache prefix used
-     */
     public function __construct(
-        public CacheInterface        $cache,
+        public CacheInterface $sender,
         public string                $key,
         public mixed                 $value,
         public null|int|DateInterval $ttl,
         public string                $prefix
     ) {
+    }
+
+    public function getSender(): CacheInterface
+    {
+        return $this->sender;
     }
 }
