@@ -33,9 +33,7 @@ use function substr;
 class CacheCommand
 {
     #[Autowired] protected ConsoleInterface $console;
-
     #[Autowired] protected CacheInterface $cache;
-
     #[Autowired] protected ClientInterface $redisCache;
 
     /** Cache key prefix that scopes list and clear operations. */
