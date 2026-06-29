@@ -235,7 +235,7 @@ class CacheCommandTest extends TestCase
         $this->assertSame(1, $fail);
     }
 
-    private function makeCommand(array $overrides = []): CacheCommand
+    protected function makeCommand(array $overrides = []): CacheCommand
     {
         $this->container->replace(ConsoleInterface::class, $this->console);
         $this->container->replace(CacheInterface::class, $this->cache);
