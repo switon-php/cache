@@ -47,7 +47,6 @@ use function is_array;
 class SimpleCache implements CacheInterface
 {
     #[Autowired] protected EventDispatcherInterface $eventDispatcher;
-
     #[Autowired] protected ClientInterface $redisCache;
 
     /** Cache key prefix for namespace isolation; required for <code>clear()</code>. */
@@ -56,16 +55,15 @@ class SimpleCache implements CacheInterface
     /**
      * Normalize PSR-16 TTL to Redis seconds.
      *
-     * @return int|null Null means no expiration; <code>DateInterval</code> values clamp non-positive durations to one second, int TTL values pass through unchanged
+     * @return int|null Null means no expiration; <code>DateInterval</code> becomes whole seconds (including ≤0 — Redis rejects invalid EX)
      */
     protected function normalizeTtl(null|int|DateInterval $ttl): ?int
     {
         if ($ttl instanceof DateInterval) {
             $now = new DateTimeImmutable();
             $target = $now->add($ttl);
-            $seconds = $target->getTimestamp() - $now->getTimestamp();
 
-            return $seconds > 0 ? $seconds : 1;
+            return $target->getTimestamp() - $now->getTimestamp();
         }
 
         return $ttl;
