@@ -13,7 +13,7 @@ use Switon\Eventing\Severity;
 /**
  * Event emitted when multiple cache keys are written in one batch (e.g. <code>setMultiple()</code>).
  *
- * Log category: <code>switon.caching.cache.multiple_written</code>
+ * Log category: <code>switon.caching.cache.multiple.written</code>
  * Payload: cache instance, written key-value pairs, TTL input, and prefix.
  *
  * @see \Psr\SimpleCache\CacheInterface
@@ -23,6 +23,12 @@ use Switon\Eventing\Severity;
 #[EventLevel(Severity::DEBUG)]
 class CacheMultipleWritten implements SenderAwareInterface
 {
+    /**
+     * @param CacheInterface $sender Cache instance that handled the write
+     * @param array<string, mixed> $values Written key-value pairs
+     * @param null|int|DateInterval $ttl Time-to-live applied to the batch
+     * @param string $prefix Cache key prefix
+     */
     public function __construct(
         public CacheInterface $sender,
         public array                 $values,

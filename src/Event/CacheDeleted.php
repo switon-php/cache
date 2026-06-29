@@ -22,6 +22,11 @@ use Switon\Eventing\Severity;
 #[EventLevel(Severity::DEBUG)]
 class CacheDeleted implements SenderAwareInterface
 {
+    /**
+     * @param CacheInterface $sender Cache instance that handled the delete
+     * @param array<int, string> $keys Deleted raw cache keys
+     * @param string $prefix Cache key prefix
+     */
     public function __construct(
         public CacheInterface $sender,
         public array          $keys,
