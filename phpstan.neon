@@ -6,3 +6,9 @@ parameters:
         - src
     tmpDir: tests/.phpstan.cache
     treatPhpDocTypesAsCertain: false
+
+    ignoreErrors:
+        # phpredis accepts int (TTL) as the third argument; the bundled stub types it as array only.
+        -
+            identifier: argument.type
+            message: '~Parameter #3 \$options of method Redis::set\(\) expects array~'
