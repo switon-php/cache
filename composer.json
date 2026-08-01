@@ -19,7 +19,7 @@
     "support": {
         "source": "https://github.com/switon-php/cache",
         "issues": "https://github.com/switon-php/cache/issues",
-        "docs": "https://docs.switon.dev/latest/cache"
+        "docs": "https://github.com/switon-php/cache/blob/main/docs/README.md"
     },
     "require": {
         "php": ">=8.3",

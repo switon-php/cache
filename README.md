@@ -43,7 +43,7 @@ class ProductService
 }
 ```
 
-Docs: https://docs.switon.dev/latest/cache
+Docs: https://github.com/switon-php/cache/blob/main/docs/README.md
 
 ## License
 
